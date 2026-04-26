@@ -51,11 +51,11 @@ nunit-*.xml
 
 # FRONTEND & IDE
 
-# Configuration VS Code (important pour ne pas imposer tes réglages)
+# Configuration VS Code
 .vscode/
 *.code-workspace
 
-# Fichiers système invisibles
+# Fichiers système
 .DS_Store
 Thumbs.db
 desktop.ini
