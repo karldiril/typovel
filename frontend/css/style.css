@@ -43,6 +43,10 @@ body {
     /*outline: 2px solid red;*/
 }
 
+i {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', 'Arial', 'sans-serif';
+}
+
 a {
     text-decoration: none;
     color: var(--brand-dark)
@@ -86,6 +90,12 @@ nav .right #register {
     color: var(--text-hover);
 }
 
+
+nav .menu {
+    display: none;
+}
+
+
 /* HERO SECTION */
 
 .hero {
@@ -125,4 +135,33 @@ nav .right #register {
     border-radius: 8px;
     font-size: 1.1rem;
     font-weight: var(--fw-medium);
+}
+
+
+
+@media (max-width: 850px) {
+    nav {
+        justify-content: flex-end;
+    }
+    nav .left {
+        display: none;
+    }
+
+    nav .right  {
+        display: none;
+    }
+
+    nav .menu {
+        display: block;
+        font-size: 25px;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+    .hero .hero-title {
+        width: 400px;
+        font-size: 3.25rem;
+    }
 }
