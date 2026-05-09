@@ -173,6 +173,10 @@ nav .menu {
     flex-direction: column;
 }
 
+.nav-menu span {
+    cursor: pointer;
+}
+
 
 .login-section {
     padding: 0 20px;
@@ -183,7 +187,6 @@ nav .menu {
 .login-section > span {
     text-align: center;
     padding: 10px;
-    cursor: pointer;
 }
 
 
