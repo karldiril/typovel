@@ -43,7 +43,7 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /*outline: 2px solid red;*/
+    outline: 2px solid red;
 }
 
 i {
@@ -141,6 +141,8 @@ nav .menu {
     z-index: 1000;
     position: relative;
     cursor: pointer;
+    padding: 7px;
+    font-size: 1.5rem;
 }
 
 .open {
@@ -234,6 +236,7 @@ nav .menu {
 @media (max-width: 850px) {
     nav {
         justify-content: flex-end;
+        padding: 0 25px;
     }
     nav .left {
         display: none;
