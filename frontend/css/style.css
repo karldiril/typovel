@@ -26,7 +26,8 @@
 
     /* Hover color */
     --text-hover: #000000;
-    --bg-hover-active: #e5e7eb;
+    --light-bg-hover-active: #e5e7eb;
+    --dark-bg--hover-active: #484848;
 
 }
 
@@ -203,8 +204,13 @@ nav .menu {
     border-radius: 5px;
 }
 
+
+.register:hover {
+    background-color: var(--dark-bg--hover-active);
+}
+
 .login:hover {
-    background-color: var(--bg-hover-active);
+    background-color: var(--light-bg-hover-active);
 }
 
 
@@ -220,7 +226,7 @@ nav .menu {
 }
 
 .other > span:hover {
-    background-color: var(--bg-hover-active);
+    background-color: var(--light-bg-hover-active);
     border-radius: 5px;
 }
 
