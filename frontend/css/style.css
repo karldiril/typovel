@@ -204,7 +204,7 @@ nav .menu {
     gap: 20px;
 }
 
-.login-section > span {
+.login-section span {
     text-align: center;
     padding: 10px;
 }
@@ -275,4 +275,28 @@ nav .menu {
         width: 400px;
         font-size: 3.25rem;
     }
+}
+
+
+
+
+/* WORK IN PROGRESS SECTION */
+
+
+.center {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 800px;
+}
+
+.center h1 {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 3.5rem;
+}
+
+.wip-icon {
+    width: 320px;
 }
