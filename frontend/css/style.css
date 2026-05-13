@@ -55,6 +55,23 @@ a {
     color: var(--brand-dark)
 }
 
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-right: 15px;
+}
+
+.logo span {
+    font-size: 2rem;
+    font-weight: var(--fw-bold);
+}
+
+.logo-icon {
+    margin-right: auto;
+    height: 40px;
+}
+
 
 /* NAVBAR SECTION */
 
@@ -62,7 +79,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 50px;
+    padding: 0 25px;
     height: 60px;
     font-size: 1rem;
 }
@@ -70,7 +87,7 @@ nav {
 nav .left {
     display: flex;
     gap: 1rem;
-    
+    margin-right: auto;
 }
 
 nav .right {
@@ -235,7 +252,6 @@ nav .menu {
 
 @media (max-width: 850px) {
     nav {
-        justify-content: flex-end;
         padding: 0 25px;
     }
     nav .left {
