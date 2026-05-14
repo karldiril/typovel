@@ -204,7 +204,7 @@ nav .menu {
     gap: 20px;
 }
 
-.login-section span {
+.login-section a {
     text-align: center;
     padding: 10px;
 }
@@ -240,11 +240,11 @@ nav .menu {
 }
 
 
-.other > span{
+.other a{
     padding: 15px;
 }
 
-.other > span:hover {
+.other a:hover {
     background-color: var(--light-bg-hover-active);
     border-radius: 5px;
 }
@@ -329,6 +329,17 @@ nav .menu {
 @media (max-width: 1000px) {
     .center h1 {
         font-size: 2rem;
+    }
+}
+
+@media (max-width: 850px) {
+    .center h1 {
+        font-size: 1.5rem;
+        margin-top: 120px;
+    }
+
+    .wip-icon {
+        width: 280px;
     }
 }
 
