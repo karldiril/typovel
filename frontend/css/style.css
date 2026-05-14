@@ -162,6 +162,7 @@ nav .menu {
     font-size: 1.5rem;
 }
 
+
 .open {
     position: fixed;
     display: flex;
@@ -179,9 +180,6 @@ nav .menu {
     display: none;
 }
 
-.nav-menu {
-    height: 500px;
-}
 
 .nav-menu {
     height: 500px;
