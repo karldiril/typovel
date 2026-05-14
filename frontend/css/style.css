@@ -293,23 +293,21 @@ nav .menu {
     height: 800px;
 }
 
-.center h1 {
-    margin-top: 50px;
-    font-size: 3.5rem;
-}
 
 .wip-icon {
     width: 320px;
 }
 
 
-/* WIP animation */
+
 
 .center h1 {
     animation: 
         type-animation var(--typing-animation) steps(39) forwards,
         cursor-blink 1s calc(var(--typing-animation) + 0.5s) step-start infinite;
 
+    margin-top: 50px;
+    font-size: 3.5rem;
     width: 100%;
     overflow: hidden;
     white-space: nowrap;
@@ -318,6 +316,24 @@ nav .menu {
     border-right: 3px solid black;
 }
 
+/* WIP responsive */
+
+
+@media (max-width: 1300px) {
+    .center h1 {
+        font-size: 2.5rem;
+    }
+}
+
+
+@media (max-width: 1000px) {
+    .center h1 {
+        font-size: 2rem;
+    }
+}
+
+
+/* WIP animation */
 
 @keyframes type-animation {
     from {

@@ -4,7 +4,6 @@ let isOpen = false;
 
 
 menu[0].addEventListener("click", ()=> {
-    console.log("oui");
     if (!isOpen) {
         navMenu[0].classList.add("open");
         navMenu[0].classList.remove("close");
