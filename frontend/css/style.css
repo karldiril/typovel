@@ -43,7 +43,7 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    outline: 2px solid red;
+    /*outline: 2px solid red;*/
 }
 
 i {
@@ -284,6 +284,8 @@ nav .menu {
 
 
 .center {
+    --typing-animation: 2s;
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -304,17 +306,16 @@ nav .menu {
 /* WIP animation */
 
 .center h1 {
-    animation-name: type-animation;
-    animation-duration: 1.8s;
-    animation-timing-function: steps(39);
-    animation-fill-mode: forwards;
-
+    animation: 
+        type-animation var(--typing-animation) steps(39) forwards,
+        cursor-blink 1s calc(var(--typing-animation) + 0.5s) step-start infinite;
 
     width: 100%;
     overflow: hidden;
     white-space: nowrap;
     font-family: monospace;
     align-self: flex-start;
+    border-right: 3px solid black;
 }
 
 
@@ -324,6 +325,17 @@ nav .menu {
     }
 
     to {
-        width: 39ch;
+        width: 40ch;
+    }
+}
+
+
+@keyframes cursor-blink {
+    from {
+        border-color: black;
+    }
+
+    50% {
+        border-color: transparent;
     }
 }
