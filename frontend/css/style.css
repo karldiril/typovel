@@ -43,7 +43,7 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /*outline: 2px solid red;*/
+    outline: 2px solid red;
 }
 
 i {
@@ -292,11 +292,38 @@ nav .menu {
 }
 
 .center h1 {
-    text-align: center;
     margin-top: 50px;
     font-size: 3.5rem;
 }
 
 .wip-icon {
     width: 320px;
+}
+
+
+/* WIP animation */
+
+.center h1 {
+    animation-name: type-animation;
+    animation-duration: 1.8s;
+    animation-timing-function: steps(39);
+    animation-fill-mode: forwards;
+
+
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    font-family: monospace;
+    align-self: flex-start;
+}
+
+
+@keyframes type-animation {
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 39ch;
+    }
 }
