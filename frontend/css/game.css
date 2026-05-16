@@ -43,6 +43,7 @@ span {
     font-size: 4rem;
     font-weight: var(--fw-semibold);
     font-family: var(--font-mono);
+    color: rgb(127, 127, 127);
     
 }
 
@@ -54,7 +55,7 @@ span {
 }
 
 .actif {
-    border-left: 3px solid black;
+    border-left: 10px solid black;
 }
 
 .incorrect {
@@ -62,5 +63,5 @@ span {
 }
 
 .correct {
-    color: greenyellow;
+    color: black;
 }
