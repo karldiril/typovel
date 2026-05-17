@@ -41,7 +41,7 @@ body {
 
 span {
     font-size: 4rem;
-    font-weight: var(--fw-semibold);
+    font-weight: var(--fw-regular);
     font-family: var(--font-mono);
     color: rgb(127, 127, 127);
     
@@ -51,11 +51,11 @@ span {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100%;
 }
 
-.actif {
-    border-left: 10px solid black;
+.actif { 
+    border-left: 2px solid black;
 }
 
 .incorrect {
@@ -64,4 +64,26 @@ span {
 
 .correct {
     color: black;
+}
+
+.TypingArea {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.jeu {
+    left: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    width: 1200px;
+    height: 350px;
+}
+
+
+.word {
+    margin: 1em .9em;
 }
