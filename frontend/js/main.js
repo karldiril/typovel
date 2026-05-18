@@ -19,19 +19,29 @@ document.addEventListener('keydown', function(event){
 
     // retirer une lettre
     if (event.key === "Backspace") {
-        if (j > 0)
-            j -= 1;
+        retirerLettre();
         lettre = mot[i].children[j];
         resetLettre(lettre);
         return;
     }
 
+    if (j >= longueurMot){
+        if (event.key == " "){
+            j = 0;
+            i += 1
+            return;
+        }
+    }
+
+
+    // if key isnt a char
 
     if (event.key.length !== 1)
         return;
 
 
-    console.log(event.key);
+    // If user key is the same
+
     if (estValide(event.key, lettre.textContent)) {
         validerLettre(lettre);
     }
@@ -39,15 +49,11 @@ document.addEventListener('keydown', function(event){
         refuserLettre(lettre);
     }
 
-    if (j >= longueurMot - 1){
-        if (event.key == " "){
-            j = 0;
-            i += 1
-        }
-            
-    }
-    else
-        j += 1;
+
+    console.log(longueurMot);
+    console.log(j);
+
+    j += 1;
 });
 
 
@@ -91,7 +97,6 @@ function resetLettre(lettre) {
 function retirerLettre() {
     if (j > 0)
         j -= 1;
-    lettre = mot[i].children[j];
 }
 
 
