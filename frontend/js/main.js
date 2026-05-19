@@ -13,12 +13,14 @@ document.addEventListener('keydown', function(event){
     let longueurMot = mot[i].children.length;
     let lettre = mot[i].children[j];
 
-    console.log("key: " +  event.key);
-    console.log("numéro mot: " + i);
-    console.log("numéro lettre: " + j);
+
+    // console.log("key: " +  event.key);
+    // console.log("numéro mot: " + i);
+    // console.log("numéro lettre: " + j);
 
     // retirer une lettre
     if (event.key === "Backspace") {
+        // console.log(i);
         retirerLettre();
         lettre = mot[i].children[j];
         resetLettre(lettre);
@@ -27,16 +29,26 @@ document.addEventListener('keydown', function(event){
 
     if (j >= longueurMot){
         if (event.key == " "){
+            if (erreurDansMot(mot[i])) {
+                mot[i].classList.add('wrong');
+            }
             j = 0;
             i += 1
             return;
+        }
+        else {
+            let letter = document.createElement('span');
+            letter.textContent = event.key;
+            letter.classList.add('incorrect');
+            mot.append(letter);
+            
         }
     }
 
 
     // if key isnt a char
 
-    if (event.key.length !== 1)
+    if (event.key.length !== 1 && event.key !== " ")
         return;
 
 
@@ -50,8 +62,8 @@ document.addEventListener('keydown', function(event){
     }
 
 
-    console.log(longueurMot);
-    console.log(j);
+    // console.log(longueurMot);
+    // console.log(j);
 
     j += 1;
 });
@@ -97,10 +109,26 @@ function resetLettre(lettre) {
 function retirerLettre() {
     if (j > 0)
         j -= 1;
+
+    // Si on est au début du mot et le mot d'avant a une erreur
+    else if (j == 0 && mot[i - 1].classList.contains('wrong')) {
+        j = mot[i - 1].textContent.length - 1;
+        i -= 1;
+    }
 }
 
 
 function passerMot() {
     i += 1;
     j = 0;
+}
+
+
+function erreurDansMot(mot) {
+    for (const lettre of mot.children) {
+        if (lettre.classList.contains('incorrect')) {
+            return true;
+        }
+    }
+    return false;
 }
