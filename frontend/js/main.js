@@ -5,11 +5,11 @@ let mots = ["bonjour", "éteins", "voiture", "interroger", "manger", "pendant", 
 initGame(mots);
 
 
-let mot = document.getElementsByClassName('word');
 
 let i = 0;
 let j = 0;
 document.addEventListener('keydown', function(event){
+    let mot = document.getElementsByClassName('word');
     let longueurMot = mot[i].children.length;
     let lettre = mot[i].children[j];
 
@@ -18,9 +18,8 @@ document.addEventListener('keydown', function(event){
     // console.log("numéro mot: " + i);
     // console.log("numéro lettre: " + j);
 
-    // retirer une lettre
+    // if the input is backspace (delete key) delete the letter
     if (event.key === "Backspace") {
-        // console.log(i);
         retirerLettre();
         lettre = mot[i].children[j];
         resetLettre(lettre);
@@ -29,24 +28,30 @@ document.addEventListener('keydown', function(event){
 
     if (j >= longueurMot){
         if (event.key == " "){
+            // Si il y a une erreur dans le mot, on le marque faux
             if (erreurDansMot(mot[i])) {
                 mot[i].classList.add('wrong');
             }
+            // Ensuite on continue simplement en sautant le mot en cours
             j = 0;
             i += 1
             return;
         }
+        // else if input isnt space, we add the letter typed
         else {
             let letter = document.createElement('span');
+            console.log('oui');
             letter.textContent = event.key;
             letter.classList.add('incorrect');
-            mot.append(letter);
+            mot[i].append(letter);
+            j += 1;
+            return;
             
         }
     }
 
 
-    // if key isnt a char
+    // if key isnt a char or a space
 
     if (event.key.length !== 1 && event.key !== " ")
         return;
@@ -69,12 +74,14 @@ document.addEventListener('keydown', function(event){
 });
 
 
+// Init the game with tab word
 
 function initGame(tab) {
-    for (const mot of tab) {
+    for (const el of tab) {
         let word = document.createElement('div');
         word.classList.add('word');
-        for (const lettre of mot) {
+
+        for (const lettre of el) {
             let letter = document.createElement('span');
             letter.classList.add('letter');
             letter.textContent = lettre;
@@ -85,26 +92,36 @@ function initGame(tab) {
 }
 
 
+// verify is the letter is valide
 
 function estValide(choix, lettre) {
     return choix === lettre;
 }
 
 
+// validate the letter
+
 function validerLettre(lettre) {
     lettre.classList.add('correct');
 }
 
 
+// refuse the letter
+
 function refuserLettre(lettre) {
     lettre.classList.add('incorrect');
 }
+
+
+// remove all color on the letter
 
 function resetLettre(lettre) {
     lettre.classList.remove('incorrect');
     lettre.classList.remove('correct');
 }
 
+
+// remove the letter
 
 function retirerLettre() {
     if (j > 0)
@@ -118,11 +135,15 @@ function retirerLettre() {
 }
 
 
+// to skip the word
+
 function passerMot() {
     i += 1;
     j = 0;
 }
 
+
+// function to verify if there is a mistake in the word 
 
 function erreurDansMot(mot) {
     for (const lettre of mot.children) {

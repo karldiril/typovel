@@ -87,3 +87,14 @@ span {
 .word {
     margin: 1em .9em;
 }
+
+
+.caret {
+    background: black;
+    width: 1em;
+    height: 1.2em;
+    position: absolute;
+    opacity: 1;
+    left: 469.5px;
+    top: 6px;
+}
