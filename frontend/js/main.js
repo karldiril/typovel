@@ -20,6 +20,11 @@ document.addEventListener('keydown', function(event){
 
     // if the input is backspace (delete key) delete the letter
     if (event.key === "Backspace") {
+        if (j > mots[i].length) {
+            let mot = document.getElementsByClassName('word');
+            console.log("grand");
+            console.log(mot[i].children[j-1].remove());
+        }
         retirerLettre();
         lettre = mot[i].children[j];
         resetLettre(lettre);
