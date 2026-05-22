@@ -129,6 +129,7 @@ function resetLettre(lettre) {
 // remove the letter
 
 function retirerLettre() {
+    let mot = document.getElementsByClassName('word');
     if (j > 0)
         j -= 1;
 
