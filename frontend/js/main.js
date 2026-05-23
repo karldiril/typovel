@@ -21,9 +21,11 @@ document.addEventListener('keydown', function(event){
     // if the input is backspace (delete key) delete the letter
     if (event.key === "Backspace") {
         if (j > mots[i].length) {
+            console.log("j : " + j);
+            console.log("longueur mot : " +  mots[i].length);
             let mot = document.getElementsByClassName('word');
             console.log("grand");
-            console.log(mot[i].children[j-1].remove());
+            mot[i].children[j - 1].remove();
         }
         retirerLettre();
         lettre = mot[i].children[j];
@@ -135,7 +137,7 @@ function retirerLettre() {
 
     // Si on est au début du mot et le mot d'avant a une erreur
     else if (j == 0 && mot[i - 1].classList.contains('wrong')) {
-        j = mot[i - 1].textContent.length - 1;
+        j = mot[i - 1].textContent.length;
         i -= 1;
     }
 }
