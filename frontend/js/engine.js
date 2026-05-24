@@ -1,51 +1,56 @@
-class Engine {
-    constructor(mots) {
-        this.mots = mots;
-        this.currentWord = 0;
-        this.currentLetter = 0;
+export class Engine {
+    constructor(tabMots) {
+        this.tabMots = tabMots;
+        this.currentWordIndex = 0;
+        this.currentLetterIndex = 0;
     }
 
     get longueurMotActuel() {
-        return this.mots[this.currentWord].length;
+        return this.tabMots[this.currentWordIndex].length;
     }
 
     
     get lettreAttendue() {
-        return this.mots[this.currentWord][this.currentLetter];
+        return this.tabMots[this.currentWordIndex][this.currentLetterIndex];
     }
 
 
-    comparerLettre(lettreUtilisateur) {
+    estValideLettre(lettreUtilisateur) {
         return lettreUtilisateur === this.lettreAttendue;
     }
 
 
     avancerLettre() {
-        this.currentLetter++;
+        this.currentLetterIndex++;
     }
 
 
     reculer() {
-        if (this.currentLetter > 0) {
-            this.currentLetter--;
+        if (this.currentLetterIndex > 0 && this.currentLetterIndex <= this.longueurMotActuel) {
+            this.currentLetterIndex--;
             return {action: "effacer_couleur_lettre"}
         }
-        else if (this.currentLetter == 0 && this.currentWord > 0) {
+        else if (this.currentLetterIndex > 0 && this.currentLetterIndex > this.longueurMotActuel) {
+            this.currentLetterIndex--;
+            return {action: "supprimer_lettre"}
+        }
+        else if (this.currentLetterIndex == 0 && this.currentWordIndex > 0) {
             return {action: "demander_retour_mot_precedent"}
         }
         return;
     }
 
-    validerReculerMot(longueurMotPrecedent) {
-        if (this.currentWord > 0) {
-            this.currentWord--;
-            this.currentLetter = longueurMotPrecedent;
+
+    validerReculerMot(longueurMotReelle) {
+        if (this.currentWordIndex > 0) {
+            this.currentWordIndex--;
+            this.currentLetterIndex = longueurMotReelle;
         }
     }
 
 
     passerMotSuivant() {
-        this.currentLetter = 0;
-        this.currentWord++;
+        this.currentLetterIndex = 0;
+        this.currentWordIndex++;
     }
 }

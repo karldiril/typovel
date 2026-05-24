@@ -1,20 +1,19 @@
 export function creerLettre(content) {
     let letter = document.createElement('span');
-    letter.classList.append('letter');
+    letter.classList.add('letter');
     letter.textContent = content;
     return letter;
 }
 
 
-const jeu = document.getElementById('jeu');
+const jeu = document.querySelector('.jeu');
 
 export function initGame(tabMot) {
-    for (const el of tab) {
+    for (const el of tabMot) {
         let word = document.createElement('div');
         word.classList.add('word');
-
         for (const char of el) {
-            letter = creerLettre(char) 
+            let letter = creerLettre(char) 
             ajouterLettre(letter, word);
         }
         jeu.append(word);
@@ -23,7 +22,7 @@ export function initGame(tabMot) {
 
 
 export function getDOMWord(currentWordIndex) {
-    return document.getElementsByClassName("word")[wordIndex];
+    return document.getElementsByClassName("word")[currentWordIndex];
 }
 
 
@@ -32,21 +31,36 @@ export function getDOMLetter(currentWordIndex, currentLetterIndex) {
 }
 
 
+export function marquerLettreIncorrect(letter) {
+    letter.classList.add('incorrect');
+}
+
+function marquerLettreCorrect(letter) {
+    letter.classList.add('correct');
+}
+
 export function changerCouleurLettre(currentLetter, estValide) {
     if (estValide)
-        currentLetter.classList.add("correct");
+        marquerLettreCorrect(currentLetter);
     else
-        currentLetter.classList.add("incorrect");
+        marquerLettreIncorrect(currentLetter);
 }
 
 
-export function supprimerCouleurLettre(currentLetter) {
-    currentLetter.classList.remove("correct", "incorrect");
+export function changerEtatMot(currentWord, estValide) {
+    if (!estValide) {
+        currentWord.classList.add('wrong');
+    }
 }
 
 
-export function supprimerLettre(currentLetter, currentWord) {
-    currentWord.remove(currentLetter);
+export function supprimerCouleurLettre(letter) {
+    letter.classList.remove("correct", "incorrect");
+}
+
+
+export function supprimerLettre(currentLetter) {
+    currentLetter.remove();
 }
 
 
@@ -55,7 +69,7 @@ export function ajouterLettre(letter, currentWord) {
 }
 
 
-function erreurDansMot(motDOM) {
+export function erreurDansMot(motDOM) {
     for (const lettre of motDOM.children) {
         if (lettre.classList.contains('incorrect')) {
             return true;
