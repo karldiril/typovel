@@ -1,6 +1,12 @@
+import Engine from './engine.js';
+import * as gameUI from './gameUI.js';
+
+
 let jeu = document.querySelector(".jeu");
 let mots = ["bonjour", "éteins", "voiture", "interroger", "manger", "pendant", "maison", "que", "je", "train", "voiture", "personne", "puis", "étudier"]
 
+
+Engine mots = new Engine(mots);
 
 initGame(mots);
 

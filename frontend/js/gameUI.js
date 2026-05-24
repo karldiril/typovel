@@ -6,6 +6,8 @@ export function creerLettre(content) {
 }
 
 
+const jeu = document.getElementById('jeu');
+
 export function initGame(tabMot) {
     for (const el of tab) {
         let word = document.createElement('div');
@@ -53,8 +55,8 @@ export function ajouterLettre(letter, currentWord) {
 }
 
 
-function erreurDansMot(mot) {
-    for (const lettre of mot.children) {
+function erreurDansMot(motDOM) {
+    for (const lettre of motDOM.children) {
         if (lettre.classList.contains('incorrect')) {
             return true;
         }
