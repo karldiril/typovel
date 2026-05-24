@@ -14,17 +14,10 @@ document.addEventListener('keydown', function(event){
     let lettre = mot[i].children[j];
 
 
-    // console.log("key: " +  event.key);
-    // console.log("numéro mot: " + i);
-    // console.log("numéro lettre: " + j);
-
     // if the input is backspace (delete key) delete the letter
     if (event.key === "Backspace") {
         if (j > mots[i].length) {
-            console.log("j : " + j);
-            console.log("longueur mot : " +  mots[i].length);
             let mot = document.getElementsByClassName('word');
-            console.log("grand");
             mot[i].children[j - 1].remove();
         }
         retirerLettre();
@@ -47,7 +40,6 @@ document.addEventListener('keydown', function(event){
         // else if input isnt space, we add the letter typed
         else {
             let letter = document.createElement('span');
-            console.log('oui');
             letter.textContent = event.key;
             letter.classList.add('incorrect');
             mot[i].append(letter);
@@ -73,9 +65,6 @@ document.addEventListener('keydown', function(event){
         refuserLettre(lettre);
     }
 
-
-    // console.log(longueurMot);
-    // console.log(j);
 
     j += 1;
 });
