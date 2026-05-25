@@ -322,17 +322,6 @@ nav .menu {
     vertical-align: bottom;
 }
 
-@keyframes blink {
-    50% {
-        opacity: 0;
-    }
-}
-
-/* WIP responsive */
-
-
-
-
 
 /* WIP animation */
 
