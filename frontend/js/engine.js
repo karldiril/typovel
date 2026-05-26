@@ -28,14 +28,14 @@ export class Engine {
     reculer() {
         if (this.currentLetterIndex > 0 && this.currentLetterIndex <= this.longueurMotActuel) {
             this.currentLetterIndex--;
-            return {action: "effacer_couleur_lettre"}
+            return {action: "RECULER_LETTRE"}
         }
         else if (this.currentLetterIndex > 0 && this.currentLetterIndex > this.longueurMotActuel) {
             this.currentLetterIndex--;
-            return {action: "supprimer_lettre"}
+            return {action: "SUPPRIMER_LETTRE"}
         }
         else if (this.currentLetterIndex == 0 && this.currentWordIndex > 0) {
-            return {action: "demander_retour_mot_precedent"}
+            return {action: "RECULER_MOT"}
         }
         return;
     }

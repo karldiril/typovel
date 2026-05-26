@@ -19,16 +19,16 @@ document.addEventListener('keydown', function(event){
     if (event.key === "Backspace") {
         let etat = game.reculer();
 
-        if (etat.action === "effacer_couleur_lettre") {
+        if (etat.action === "RECULER_LETTRE") {
             gameUI.supprimerCouleurLettre(gameUI.getDOMLetter(game.currentWordIndex, game.currentLetterIndex));
         }
 
-        else if (etat.action === "demander_retour_mot_precedent" && gameUI.erreurDansMot(gameUI.getDOMWord(game.currentWordIndex - 1))) {
+        else if (etat.action === "RECULER_MOT" && gameUI.erreurDansMot(gameUI.getDOMWord(game.currentWordIndex - 1))) {
             let motPrecedent = gameUI.getDOMWord(game.currentWordIndex - 1);
             game.validerReculerMot(motPrecedent.children.length);
         }
 
-        else if (etat.action === "supprimer_lettre") {
+        else if (etat.action === "SUPPRIMER_LETTRE") {
             gameUI.supprimerLettre(gameUI.getDOMLetter(game.currentWordIndex, game.currentLetterIndex), currentWord);
         }
 
