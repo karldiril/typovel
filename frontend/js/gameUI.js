@@ -77,3 +77,19 @@ export function erreurDansMot(motDOM) {
     }
     return false;
 }
+
+
+const caretElement = document.querySelector(".caret");
+const typingArea = document.querySelector(".TypingArea");
+
+export function deplacerCaret(currentLetter) {
+    const lettreRect = currentLetter.getBoundingClientRect();
+    const conteneurRect = typingArea.getBoundingClientRect();
+
+    // Obtenir la distance entre le bord du jeu et la lettre
+    const topPosition = lettreRect.top - conteneurRect.top;
+    const leftPosition = lettreRect.left - conteneurRect.left;
+
+    caretElement.style.top = `${topPosition}px`;
+    caretElement.style.left = `${leftPosition}px`;
+}

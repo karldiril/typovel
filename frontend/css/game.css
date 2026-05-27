@@ -90,11 +90,17 @@ span {
 
 
 .caret {
-    background: black;
-    width: 1em;
-    height: 1.2em;
-    position: absolute;
-    opacity: 1;
-    left: 469.5px;
-    top: 6px;
+  position: absolute;
+  width: 2px;
+  height: 5rem;
+  background-color: #f1c40f;
+  border-radius: 4px;
+  transition: all 0.1s ease;
+  animation: clignotement 1s infinite;
+}
+
+
+@keyframes clignotement {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
 }

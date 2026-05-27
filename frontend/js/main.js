@@ -8,6 +8,8 @@ let mots = ["bonjour", "éteins", "voiture", "interroger", "manger", "pendant", 
 
 const game = new Engine(mots);
 gameUI.initGame(mots)
+let premiereLettre = gameUI.getDOMLetter(game.currentWordIndex, game.currentLetterIndex);
+gameUI.deplacerCaret(premiereLettre);
 
 
 document.addEventListener('keydown', function(event){
@@ -61,4 +63,7 @@ document.addEventListener('keydown', function(event){
 
 
     game.avancerLettre();
+
+    let nouvelleLettre = gameUI.getDOMLetter(game.currentWordIndex, game.currentLetterIndex);
+    gameUI.deplacerCaret(nouvelleLettre);
 });
