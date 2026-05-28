@@ -1,56 +1,27 @@
 export class Engine {
-    constructor(tabMots) {
-        this.tabMots = tabMots;
-        this.currentWordIndex = 0;
-        this.currentLetterIndex = 0;
+    constructor(tabMot, currentWordIndex = 0, currentLetterIndex = 0, state = "INIT") {
+        this.tabMot = tabMot;
+        this.currentWordIndex = Math.max(0, currentWordIndex);
+        this.currentLetterIndex = Math.max(0, currentLetterIndex);
+        this.state = state;
     }
-
-    get longueurMotActuel() {
-        return this.tabMots[this.currentWordIndex].length;
-    }
-
     
-    get lettreAttendue() {
-        return this.tabMots[this.currentWordIndex][this.currentLetterIndex];
+    get longueurMotActuel() {
+        return this.tabMot[this.currentWordIndex].length;
     }
 
 
-    estValideLettre(lettreUtilisateur) {
-        return lettreUtilisateur === this.lettreAttendue;
-    }
-
-
-    avancerLettre() {
-        this.currentLetterIndex++;
-    }
-
-
-    reculer() {
-        if (this.currentLetterIndex > 0 && this.currentLetterIndex <= this.longueurMotActuel) {
-            this.currentLetterIndex--;
-            return {action: "RECULER_LETTRE"}
+    verifyLetter(newLetter) {
+        const expectedLetter = this.tabMot[this.currentWordIndex][this.currentLetterIndex];
+        const wordSize = this.longueurMotActuel;
+        if (expectedLetter === newLetter)
+            return new Engine(this.tabMot, this.currentWordIndex, this.letterIndex + 1, "SUCCESS")
+        else {
+            if (this.currentLetterIndex >= wordSize)
+                return new Engine(this.tabMot, this.currentWordIndex, this.letterIndex + 1, "BONUS");
+            else
+                return new Engine(this.tabMot, this.currentWordIndex, this.letterIndex + 1, "ERROR");
         }
-        else if (this.currentLetterIndex > 0 && this.currentLetterIndex > this.longueurMotActuel) {
-            this.currentLetterIndex--;
-            return {action: "SUPPRIMER_LETTRE"}
-        }
-        else if (this.currentLetterIndex == 0 && this.currentWordIndex > 0) {
-            return {action: "RECULER_MOT"}
-        }
-        return;
-    }
-
-
-    validerReculerMot(longueurMotReelle) {
-        if (this.currentWordIndex > 0) {
-            this.currentWordIndex--;
-            this.currentLetterIndex = longueurMotReelle;
-        }
-    }
-
-
-    passerMotSuivant() {
-        this.currentLetterIndex = 0;
-        this.currentWordIndex++;
     }
 }
+
