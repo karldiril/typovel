@@ -1,27 +1,34 @@
 export class Engine {
-    constructor(tabMot, currentWordIndex = 0, currentLetterIndex = 0, state = "INIT") {
-        this.tabMot = tabMot;
+    constructor(tabMotsObjets, currentWordIndex = 0, currentLetterIndex = 0) {
+        this.tabMots = tabMotsObjets;
         this.currentWordIndex = Math.max(0, currentWordIndex);
         this.currentLetterIndex = Math.max(0, currentLetterIndex);
-        this.state = state;
     }
     
     get longueurMotActuel() {
-        return this.tabMot[this.currentWordIndex].length;
+        return this.tabMots[this.currentWordIndex].attendu.length;
+    }
+
+
+    static init(tabMots) {
+        const tabMotsObjets = tabMots.map(mot => ({
+            attendu: mot,
+            tape: "",
+        }));
+        return new Engine(tabMotsObjets);
     }
 
 
     verifyLetter(newLetter) {
-        const expectedLetter = this.tabMot[this.currentWordIndex][this.currentLetterIndex];
-        const wordSize = this.longueurMotActuel;
-        if (expectedLetter === newLetter)
-            return new Engine(this.tabMot, this.currentWordIndex, this.letterIndex + 1, "SUCCESS")
-        else {
-            if (this.currentLetterIndex >= wordSize)
-                return new Engine(this.tabMot, this.currentWordIndex, this.letterIndex + 1, "BONUS");
-            else
-                return new Engine(this.tabMot, this.currentWordIndex, this.letterIndex + 1, "ERROR");
-        }
+        const nouveauxMots = [...this.tabMots];
+        const motActuel = nouveauxMots[this.currentWordIndex];
+
+        nouveauxMots[this.currentWordIndex] = {
+            ...motActuel,
+            tape: motActuel.tape + newLetter
+        };
+
+        return new Engine(nouveauxMots, this.currentWordIndex, this.currentLetterIndex + 1);
     }
 }
 
