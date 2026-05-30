@@ -30,5 +30,12 @@ export class Engine {
 
         return new Engine(nouveauxMots, this.currentWordIndex, this.currentLetterIndex + 1);
     }
+
+
+    nextWord() {
+        return new Engine(this.tabMots, this.currentWordIndex + 1, 0);
+    }
+
+
 }
 
