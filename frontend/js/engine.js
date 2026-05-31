@@ -37,5 +37,28 @@ export class Engine {
     }
 
 
+    removeLetter() {
+        const motActuel = this.tabMots[this.currentWordIndex];
+
+        if (motActuel.tape.length > 0) {
+            const nouveauxMots = [...this.tabMots];
+            nouveauxMots[this.currentWordIndex] = {
+                ...motActuel,
+                tape: motActuel.tape.slice(0, -1)
+            };
+            return new Engine(nouveauxMots, this.currentWordIndex, this.currentLetterIndex - 1);
+        }
+
+        if (this.currentWordIndex > 0) {
+            const motPrecedent = this.tabMots[this.currentWordIndex - 1];
+            
+            if (motPrecedent.tape !== motPrecedent.attendu) {
+                return new Engine(this.tabMots, this.currentWordIndex - 1, motPrecedent.tape.length);
+            }
+        }
+
+        return this; 
+    }
+
 }
 
