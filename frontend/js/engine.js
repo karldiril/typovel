@@ -9,6 +9,10 @@ export class Engine {
         return this.tabMots[this.currentWordIndex].attendu.length;
     }
 
+    get isFinished() {
+        return this.currentWordIndex >= this.tabMots.length;
+    }
+
 
     static init(tabMots) {
         const tabMotsObjets = tabMots.map(mot => ({
