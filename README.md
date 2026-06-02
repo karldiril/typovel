@@ -1,34 +1,44 @@
-# Typovel
+# ⌨️ Typovel
 
-[![Tech Stack](https://img.shields.io/badge/Stack-JS_Vanilla_|_ASP.NET_8-blue)](https://github.com/karldiril/typovel)
+[![Live Demo](https://img.shields.io/badge/Live-typovel.com-success)](https://typovel.com)
+[![Tech Stack](https://img.shields.io/badge/Stack-Vanilla_JS_|_HTML5_|_CSS3-blue)](https://github.com/karldiril/typovel)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-**Typovel** est une application web de dactylographie minimaliste centrée sur la performance et l'expérience utilisateur. Directement inspiré de Monkeytype, le projet permet de mesurer sa vitesse de frappe (WPM) et sa précision en temps réel dans un environnement épuré.
+**Typovel** est un moteur de dactylographie web haute performance, développé entièrement en JavaScript Vanilla. Inspiré par les standards du genre comme Monkeytype, Typovel se concentre sur une expérience de frappe fluide, minimaliste, et techniquement irréprochable.
+
+🌍 **Essayer le projet en direct : [typovel.com](https://typovel.com)**
 
 ---
 
-## 🛠 Tech Stack
+## 🎮 Fonctionnalités
 
-| Composant | Technologie |
-| :--- | :--- |
-| **Frontend** | Vanilla JavaScript (ES6+), HTML5, CSS3 |
-| **Backend** | ASP.NET Core 8 Web API |
-| **Database** | PostgreSQL + Entity Framework Core |
-| **Architecture** | REST API |
+*   **Mesure de performance en temps réel :** Calcul algorithmique du WPM (Mots Par Minute) et de la précision globale de l'utilisateur.
+*   **Moteur de frappe intelligent :** Prise en charge des corrections complexes, incluant le retour en arrière (Backspace) avec verrouillage des mots validés et retour sur les mots erronés.
+*   **Rendu dynamique :** Coloration syntaxique instantanée des lettres (correctes, incorrectes, en surplus) sans latence.
+*   **Design minimaliste :** Interface utilisateur épurée pour maximiser la concentration.
 
 ---
 
 ## 🏗 Architecture du projet
 
-Le dépôt est organisé pour séparer la logique client de la persistence des données.
+L'application est structurée de manière modulaire, séparant strictement la logique métier de l'interface graphique :
 
 ```text
 typovel/
-├── frontend/           # Application Client (Static)
-│   ├── assets/         # Images, fonts et fichiers statiques
-│   ├── css/            # Styles modulaires (Layout, Themes)
-│   ├── js/             # Logique applicative (Engine, UI, Stats)
-│   └── index.html      # Point d'entrée principal
-├── backend/            # API de persistence (.NET)
-│   └── Typovel.API/ # Endpoints et Logique métier
-└── docs/               # Documentation technique et spécifications
+├── frontend/           # Application Web
+│   ├── assets/         # Ressources statiques (images, polices)
+│   ├── css/            
+│   │   ├── game.css    # Styles spécifiques à l'interface de jeu
+│   │   └── style.css   # Styles globaux et page d'accueil
+│   ├── js/             
+│   │   ├── engine.js   # Cœur du moteur (Logique métier Stateless)
+│   │   ├── gameUI.js   # Gestion du DOM et des événements en jeu
+│   │   ├── main.js     # Contrôleur principal de l'application
+│   │   └── ui.js       # Composants d'interface génériques
+│   ├── game.html       # Vue de la session de dactylographie
+│   ├── index.html      # Vue principale / Landing page
+│   └── wip.html        # Environnement de test (Work in Progress)
+├── .vscode/            # Configuration de l'éditeur
+├── .gitignore          # Fichiers ignorés par Git
+├── LICENSE             # Licence MIT
+└── README.md           # Documentation du projet
