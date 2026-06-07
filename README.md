@@ -38,7 +38,6 @@ typovel/
 │   ├── game.html       # Vue de la session de dactylographie
 │   ├── index.html      # Vue principale / Landing page
 │   └── wip.html        # Environnement de test (Work in Progress)
-├── .vscode/            # Configuration de l'éditeur
 ├── .gitignore          # Fichiers ignorés par Git
 ├── LICENSE             # Licence MIT
 └── README.md           # Documentation du projet
