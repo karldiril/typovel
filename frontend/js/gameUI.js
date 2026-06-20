@@ -1,95 +1,45 @@
-export function creerLettre(content) {
-    let letter = document.createElement('span');
-    letter.classList.add('letter');
-    letter.textContent = content;
-    return letter;
-}
+import { Engine } from './engine.js';
 
 
-const jeu = document.querySelector('.jeu');
+const game = document.querySelector(".jeu");
 
-export function initGame(tabMot) {
-    for (const el of tabMot) {
-        let word = document.createElement('div');
-        word.classList.add('word');
-        for (const char of el) {
-            let letter = creerLettre(char) 
-            ajouterLettre(letter, word);
+export function updateUI(engine) {
+    game.innerHTML = "";
+    let finalUI = "";
+    for (const objet of engine.tabMots) {
+        finalUI += `<div class="word">`;
+
+        const motAttendu = objet.attendu;
+        const motTape = objet.tape;
+
+
+        for (let i = 0; i < motAttendu.length; i++) {
+            let content = motAttendu[i];
+
+            if (i < motTape.length) {
+                if (motTape[i] == motAttendu[i]) {
+                    finalUI += `<span class="correct">${content}</span>`;
+                }
+                else {
+                    finalUI += `<span class="incorrect">${content}</span>`;
+                }
+            }
+            else {
+                finalUI += `<span>${content}</span>`;
+            }
         }
-        jeu.append(word);
-    }   
-}
 
+        if (motTape.length > motAttendu.length) {
+            const surplus = motTape.slice(motAttendu.length);
 
-export function getDOMWord(currentWordIndex) {
-    return document.getElementsByClassName("word")[currentWordIndex];
-}
-
-
-export function getDOMLetter(currentWordIndex, currentLetterIndex) {
-    return getDOMWord(currentWordIndex).children[currentLetterIndex];
-}
-
-
-export function marquerLettreIncorrect(letter) {
-    letter.classList.add('incorrect');
-}
-
-function marquerLettreCorrect(letter) {
-    letter.classList.add('correct');
-}
-
-export function changerCouleurLettre(currentLetter, estValide) {
-    if (estValide)
-        marquerLettreCorrect(currentLetter);
-    else
-        marquerLettreIncorrect(currentLetter);
-}
-
-
-export function changerEtatMot(currentWord, estValide) {
-    if (!estValide) {
-        currentWord.classList.add('wrong');
-    }
-}
-
-
-export function supprimerCouleurLettre(letter) {
-    letter.classList.remove("correct", "incorrect");
-}
-
-
-export function supprimerLettre(currentLetter) {
-    currentLetter.remove();
-}
-
-
-export function ajouterLettre(letter, currentWord) {
-    currentWord.append(letter);
-}
-
-
-export function erreurDansMot(motDOM) {
-    for (const lettre of motDOM.children) {
-        if (lettre.classList.contains('incorrect')) {
-            return true;
+            for (let i = 0; i < surplus.length; i++) {
+                finalUI += `<span class="incorrect">${surplus[i]}</span>`;
+            }
         }
+
+
+        finalUI += `</div>`;
     }
-    return false;
-}
-
-
-const caretElement = document.querySelector(".caret");
-const typingArea = document.querySelector(".TypingArea");
-
-export function deplacerCaret(currentLetter) {
-    const lettreRect = currentLetter.getBoundingClientRect();
-    const conteneurRect = typingArea.getBoundingClientRect();
-
-    // Obtenir la distance entre le bord du jeu et la lettre
-    const topPosition = lettreRect.top - conteneurRect.top;
-    const leftPosition = lettreRect.left - conteneurRect.left;
-
-    caretElement.style.top = `${topPosition}px`;
-    caretElement.style.left = `${leftPosition}px`;
+    
+    game.innerHTML = finalUI;
 }
