@@ -42,6 +42,7 @@ export function updateUI(engine) {
     }
     
     game.innerHTML = finalUI;
+    getInputElement().value = "";
 }
 
 
