@@ -38,7 +38,7 @@ export class Engine {
 
     submitWord() {
         if (this.currentLetterIndex != 0)
-            return new Engine(this.tabMots, this.currentLetterIndex + 1, 0);
+            return new Engine(this.tabMots, this.currentWordIndex + 1, 0);
         else {
             return this;
         }
