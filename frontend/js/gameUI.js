@@ -43,3 +43,8 @@ export function updateUI(engine) {
     
     game.innerHTML = finalUI;
 }
+
+
+export function getInputElement() {
+    return document.querySelector(".typing-input");
+}
