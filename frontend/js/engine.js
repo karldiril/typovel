@@ -18,6 +18,11 @@ export class Engine {
         const tabMotsObjets = tabMots.map(mot => ({
             attendu: mot,
             tape: "",
+            lettres: mot.split("").map(lettre =>({
+                charAttendu: lettre,
+                charTape: "",
+                charEtat: "PENDING"
+            }))
         }));
         return new Engine(tabMotsObjets);
     }
@@ -26,10 +31,29 @@ export class Engine {
     verifyLetter(newLetter) {
         const nouveauxMots = [...this.tabMots];
         const motActuel = nouveauxMots[this.currentWordIndex];
+        const lettresActuel = [...motActuel.lettres];
+        const etatLettreActuelle = this.calculEtat(newLetter);
+
+        if (this.isWordComplete) {
+            lettresActuel.push({
+                charAttendu: "", 
+                charEtat: etatLettreActuelle,
+                charTape: newLetter,
+            })
+        }
+        else {
+            lettresActuel[this.currentLetterIndex] = {
+                ...lettresActuel[this.currentLetterIndex],
+                charTape: newLetter,
+                charEtat: etatLettreActuelle
+            };
+        }
+        
 
         nouveauxMots[this.currentWordIndex] = {
             ...motActuel,
-            tape: motActuel.tape + newLetter
+            tape: motActuel.tape + newLetter,
+            lettres: [...lettresActuel],
         };
 
         return new Engine(nouveauxMots, this.currentWordIndex, this.currentLetterIndex + 1);
@@ -50,16 +74,32 @@ export class Engine {
 
         if (motActuel.tape.length > 0) {
             const nouveauxMots = [...this.tabMots];
+            const lettresActuel = [...motActuel.lettres];
+
+            const targetIndex = this.currentLetterIndex - 1;
+
+            if (targetIndex >= motActuel.attendu.length) {
+                lettresActuel.pop();
+            }
+            else {
+                lettresActuel[targetIndex] = {
+                ...lettresActuel[targetIndex],
+                charTape: "",
+                charEtat: "PENDING"
+                };
+            }
+
             nouveauxMots[this.currentWordIndex] = {
                 ...motActuel,
-                tape: motActuel.tape.slice(0, -1)
+                tape: motActuel.tape.slice(0, -1),
+                lettres: lettresActuel
             };
-            return new Engine(nouveauxMots, this.currentWordIndex, this.currentLetterIndex - 1);
+
+            return new Engine(nouveauxMots, this.currentWordIndex, targetIndex);
         }
 
-        if (this.currentWordIndex > 0) {
+        if (this.currentWordIndex > 0) {  
             const motPrecedent = this.tabMots[this.currentWordIndex - 1];
-            
             if (motPrecedent.tape !== motPrecedent.attendu) {
                 return new Engine(this.tabMots, this.currentWordIndex - 1, motPrecedent.tape.length);
             }
@@ -68,5 +108,24 @@ export class Engine {
         return this; 
     }
 
+
+
+
+    calculEtat(key) {
+        const motActuel = this.tabMots[this.currentWordIndex];
+
+        if (this.isWordComplete) {
+            return "EXTRA";
+        }
+        if (key === motActuel.attendu[this.currentLetterIndex]) {
+            return "CORRECT";
+        }
+        return "INCORRECT";
+    }
+
+
+    get isWordComplete() {
+    return this.currentLetterIndex >= this.tabMots[this.currentWordIndex].attendu.length;
+}
 }
 

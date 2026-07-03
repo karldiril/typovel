@@ -21,6 +21,7 @@ window.addEventListener("keydown", (event) => {
         engine = engine.submitWord();
     }
     gameUI.updateUI(engine);
+    console.log(engine);
 });
 
 
@@ -30,6 +31,7 @@ input.addEventListener("input", (event) => {
     }
 
     gameUI.updateUI(engine);
+    console.log(engine);
 })
 
 
