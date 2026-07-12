@@ -9,42 +9,55 @@ export function updateUI(engine) {
     for (const objet of engine.tabMots) {
         finalUI += `<div class="word">`;
 
-        const motAttendu = objet.attendu;
-        const motTape = objet.tape;
+        const lettres = objet.lettres;
 
-
-        for (let i = 0; i < motAttendu.length; i++) {
-            let content = motAttendu[i];
-
-            if (i < motTape.length) {
-                if (motTape[i] == motAttendu[i]) {
+        for (let i = 0; i < lettres.length; i++) {
+            let etat = lettres[i].charEtat;
+            let content = lettres[i].charAttendu;
+            switch (etat) {
+                case "CORRECT":
                     finalUI += `<span class="correct">${content}</span>`;
-                }
-                else {
+                    break;
+                case "INCORRECT":
                     finalUI += `<span class="incorrect">${content}</span>`;
-                }
+                    break;
+                case "PENDING":
+                    finalUI += `<span>${content}</span>`;
+                    break;
+                case "EXTRA":
+                    finalUI += `<span class="incorrect extra">${lettres[i].charTape}</span>`;
+                    break;
             }
-            else {
-                finalUI += `<span>${content}</span>`;
-            }
+                
         }
-
-        if (motTape.length > motAttendu.length) {
-            const surplus = motTape.slice(motAttendu.length);
-
-            for (let i = 0; i < surplus.length; i++) {
-                finalUI += `<span class="incorrect">${surplus[i]}</span>`;
-            }
-        }
-
-
         finalUI += `</div>`;
     }
     
     game.innerHTML = finalUI;
+    curseurPlacement(engine);
     getInputElement().value = "";
 }
 
+
+export function curseurPlacement(engine) {
+    const currentWord = document.querySelectorAll(".word")[engine.currentWordIndex];
+    const currentLetter = currentWord.children[engine.currentLetterIndex + 1];
+    console.log(engine.currentLetterIndex);
+    const caret = document.querySelector(".caret");
+
+
+    if (engine.currentLetterIndex == 0) {
+        const currentLetter = currentWord.children[engine.currentLetterIndex];
+        caret.style.left = `${currentLetter.offsetLeft}px`;
+        caret.style.top = `${currentLetter.offsetTop}px`;
+    }
+    else {
+        const currentLetter = currentWord.children[engine.currentLetterIndex - 1];
+        caret.style.left = `${currentLetter.offsetLeft + currentLetter.offsetWidth}px`;
+        caret.style.top = `${currentLetter.offsetTop}px`;
+    }
+    
+}
 
 export function getInputElement() {
     return document.querySelector(".typing-input");

@@ -125,7 +125,7 @@ export class Engine {
 
 
     get isWordComplete() {
-    return this.currentLetterIndex >= this.tabMots[this.currentWordIndex].attendu.length;
-}
+        return this.currentLetterIndex >= this.tabMots[this.currentWordIndex].attendu.length;
+    }
 }
 
