@@ -14,24 +14,33 @@ window.addEventListener("load", (_) => {
 
 window.addEventListener("keydown", (event) => {
     if (event.code == "Backspace") {
-        engine = engine.removeLetter();
+        console.log(gameUI.getOffset());
+        console.log(engine.currentWordIndex);
+        engine = engine.removeLetter(gameUI.getOffset());
     }
 
     if (event.code == "Space") {
         engine = engine.submitWord();
+        if(gameUI.aPasserLigne(engine.currentWordIndex, engine.currentWordIndex - 1)) {
+            if (gameUI.doitDecalerAffichage(engine.currentWordIndex - 1)) {
+                gameUI.allongerOffset(gameUI.calculerDecalage())
+            }
+            
+        }
     }
     gameUI.updateUI(engine);
-    console.log(engine);
 });
 
 
 input.addEventListener("input", (event) => {
     if (isLetter(event.target.value)) {
-        engine = engine.verifyLetter(event.target.value);
+        if (engine.isWordComplete && !gameUI.peutAjouterLettre(engine.currentWordIndex))
+            return;
+        else
+            engine = engine.verifyLetter(event.target.value);
     }
 
     gameUI.updateUI(engine);
-    console.log(engine);
 })
 
 

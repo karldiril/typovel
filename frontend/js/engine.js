@@ -3,6 +3,7 @@ export class Engine {
         this.tabMots = tabMotsObjets;
         this.currentWordIndex = Math.max(0, currentWordIndex);
         this.currentLetterIndex = Math.max(0, currentLetterIndex);
+        this.motMinimumAutorisé = 0;
     }
     
     get longueurMotActuel() {
@@ -33,14 +34,20 @@ export class Engine {
         const motActuel = nouveauxMots[this.currentWordIndex];
         const lettresActuel = [...motActuel.lettres];
         const etatLettreActuelle = this.calculEtat(newLetter);
+        const quantiteExtraLetter = motActuel.tape.length - motActuel.attendu.length;
 
-        if (this.isWordComplete) {
+        if (this.isWordComplete && quantiteExtraLetter >= 5) {
+            return this;
+        }
+
+        else if (this.isWordComplete) {
             lettresActuel.push({
                 charAttendu: "", 
                 charEtat: etatLettreActuelle,
                 charTape: newLetter,
             })
         }
+
         else {
             lettresActuel[this.currentLetterIndex] = {
                 ...lettresActuel[this.currentLetterIndex],
@@ -69,7 +76,7 @@ export class Engine {
     }
 
 
-    removeLetter() {
+    removeLetter(limiteRecul) {
         const motActuel = this.tabMots[this.currentWordIndex];
 
         if (motActuel.tape.length > 0) {
@@ -98,7 +105,7 @@ export class Engine {
             return new Engine(nouveauxMots, this.currentWordIndex, targetIndex);
         }
 
-        if (this.currentWordIndex > 0) {  
+        if (this.currentWordIndex > 0 && this.currentWordIndex - 1 >= limiteRecul) {  
             const motPrecedent = this.tabMots[this.currentWordIndex - 1];
             if (motPrecedent.tape !== motPrecedent.attendu) {
                 return new Engine(this.tabMots, this.currentWordIndex - 1, motPrecedent.tape.length);

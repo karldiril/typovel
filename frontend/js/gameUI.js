@@ -20,8 +20,6 @@ export function updateUI(engine) {
 
         finalUI += `<div class="word" data-wordindex="${indexAbsolu}">`;
 
-        console.log(wordObject);
-
         const lettres = wordObject.lettres;
 
         for (let j = 0; j < lettres.length; j++) {
@@ -75,4 +73,58 @@ export function curseurPlacement(engine) {
 
 export function getInputElement() {
     return document.querySelector(".typing-input");
+}
+
+
+
+export function aPasserLigne(indexA, indexB) {
+    const motA = document.querySelector(`.word[data-wordindex="${indexA}"]`);
+    const motB = document.querySelector(`.word[data-wordindex="${indexB}"]`);
+
+    if (!motA || !motB) return false;
+
+    return motB.offsetTop < motA.offsetTop;
+}
+
+
+export function calculerDecalage() {
+    let decalage = 1;
+    let i = offset;
+    let currentWord = document.querySelector(`.word[data-wordindex="${i}"]`);
+    let nextWord = document.querySelector(`.word[data-wordindex="${i + 1}"]`);
+    while (currentWord && nextWord && currentWord.offsetTop == nextWord.offsetTop) {
+        decalage += 1;
+        i += 1;
+        currentWord = document.querySelector(`.word[data-wordindex="${i}"]`);
+        nextWord = document.querySelector(`.word[data-wordindex="${i + 1}"]`);
+    }
+    return decalage;
+}
+
+
+export function allongerOffset(valeur) {
+    offset += valeur;
+}
+
+export function getOffset() {
+    return offset;
+}
+
+
+
+export function doitDecalerAffichage(currentWordIndex) {
+    const firstWord = document.querySelectorAll(".word")[0];
+    const currentWord = document.querySelector(`.word[data-wordindex="${currentWordIndex}"]`);
+
+    return currentWord.offsetTop != firstWord.offsetTop;
+}
+
+
+export function peutAjouterLettre(currentWordIndex) {
+    const currentWord = document.querySelector(`.word[data-wordindex="${currentWordIndex}"]`).getBoundingClientRect();
+    const letterSize = document.querySelector("span").getBoundingClientRect().width;
+    const zoneDeJeu = document.querySelector(".jeu").getBoundingClientRect();
+
+    return (currentWord.right + (letterSize * 1.5)) < zoneDeJeu.right;
+
 }
