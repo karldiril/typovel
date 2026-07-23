@@ -13,9 +13,10 @@ window.addEventListener("load", (_) => {
 
 
 window.addEventListener("keydown", (event) => {
+    if (engine.status == "FINISHED") return;
+
+
     if (event.code == "Backspace") {
-        console.log(gameUI.getOffset());
-        console.log(engine.currentWordIndex);
         engine = engine.removeLetter(gameUI.getOffset());
     }
 
@@ -33,6 +34,8 @@ window.addEventListener("keydown", (event) => {
 
 
 input.addEventListener("input", (event) => {
+    if (engine.status == "FINISHED") return;
+
     if (isLetter(event.target.value)) {
         if (engine.isWordComplete && !gameUI.peutAjouterLettre(engine.currentWordIndex))
             return;

@@ -1,9 +1,12 @@
 export class Engine {
-    constructor(tabMotsObjets, currentWordIndex = 0, currentLetterIndex = 0) {
+    constructor(tabMotsObjets, currentWordIndex = 0, currentLetterIndex = 0, status = "IDLE", startTime = null, endTime = null) {
         this.tabMots = tabMotsObjets;
         this.currentWordIndex = Math.max(0, currentWordIndex);
         this.currentLetterIndex = Math.max(0, currentLetterIndex);
-        this.motMinimumAutorisé = 0;
+
+        this.status = status;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
     
     get longueurMotActuel() {
@@ -30,6 +33,18 @@ export class Engine {
 
 
     verifyLetter(newLetter) {
+
+        if (this.status === "FINISHED") return this;
+
+        let currentStatus = this.status;
+        let currentStartTime = this.startTime;
+
+        if (currentStatus === "IDLE") {
+            currentStatus = "PLAYING";
+            currentStartTime = Date.now();
+        }
+
+
         const nouveauxMots = [...this.tabMots];
         const motActuel = nouveauxMots[this.currentWordIndex];
         const lettresActuel = [...motActuel.lettres];
@@ -63,13 +78,25 @@ export class Engine {
             lettres: [...lettresActuel],
         };
 
-        return new Engine(nouveauxMots, this.currentWordIndex, this.currentLetterIndex + 1);
+        return new Engine(nouveauxMots, this.currentWordIndex, this.currentLetterIndex + 1, currentStatus, currentStartTime, this.endTime);
     }
 
 
     submitWord() {
-        if (this.currentLetterIndex != 0)
-            return new Engine(this.tabMots, this.currentWordIndex + 1, 0);
+        if (this.status === "FINISHED") return this;
+
+        if (this.currentLetterIndex != 0) {
+            const nextWordIndex = this.currentWordIndex + 1;
+            let currentStatus = this.status;
+            let currentEndTime = this.endTime;
+
+            if (nextWordIndex >= this.tabMots.length) {
+                currentStatus = "FINISHED";
+                currentEndTime = Date.now();
+            }
+
+            return new Engine(this.tabMots, nextWordIndex, 0, currentStatus, this.startTime, currentEndTime);
+        } 
         else {
             return this;
         }
@@ -77,6 +104,9 @@ export class Engine {
 
 
     removeLetter(limiteRecul) {
+
+        if (this.status === "FINISHED") return this;
+
         const motActuel = this.tabMots[this.currentWordIndex];
 
         if (motActuel.tape.length > 0) {
@@ -102,13 +132,13 @@ export class Engine {
                 lettres: lettresActuel
             };
 
-            return new Engine(nouveauxMots, this.currentWordIndex, targetIndex);
+            return new Engine(nouveauxMots, this.currentWordIndex, targetIndex, this.status, this.startTime, this.endTime);
         }
 
         if (this.currentWordIndex > 0 && this.currentWordIndex - 1 >= limiteRecul) {  
             const motPrecedent = this.tabMots[this.currentWordIndex - 1];
             if (motPrecedent.tape !== motPrecedent.attendu) {
-                return new Engine(this.tabMots, this.currentWordIndex - 1, motPrecedent.tape.length);
+                return new Engine(this.tabMots, this.currentWordIndex - 1, motPrecedent.tape.length, this.status, this.startTime, this.endTime);
             }
         }
 
