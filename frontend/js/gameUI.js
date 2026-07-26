@@ -27,16 +27,16 @@ export function updateUI(engine) {
             let content = lettres[j].charAttendu;
             switch (etat) {
                 case "CORRECT":
-                    finalUI += `<span class="correct">${content}</span>`;
+                    finalUI += `<span class="letter correct">${content}</span>`;
                     break;
                 case "INCORRECT":
-                    finalUI += `<span class="incorrect">${content}</span>`;
+                    finalUI += `<span class="letter incorrect">${content}</span>`;
                     break;
                 case "PENDING":
-                    finalUI += `<span>${content}</span>`;
+                    finalUI += `<span class="letter">${content}</span>`;
                     break;
                 case "EXTRA":
-                    finalUI += `<span class="incorrect extra">${lettres[j].charTape}</span>`;
+                    finalUI += `<span class="letter incorrect extra">${lettres[j].charTape}</span>`;
                     break;
             }
                 
@@ -75,6 +75,11 @@ export function getInputElement() {
     return document.querySelector(".typing-input");
 }
 
+
+
+export function getGameArea() {
+    return document.querySelector(".game-container");
+}
 
 
 export function aPasserLigne(indexA, indexB) {
@@ -122,9 +127,29 @@ export function doitDecalerAffichage(currentWordIndex) {
 
 export function peutAjouterLettre(currentWordIndex) {
     const currentWord = document.querySelector(`.word[data-wordindex="${currentWordIndex}"]`).getBoundingClientRect();
-    const letterSize = document.querySelector("span").getBoundingClientRect().width;
+    const letterSize = document.querySelector(".letter").getBoundingClientRect().width;
     const zoneDeJeu = document.querySelector(".jeu").getBoundingClientRect();
 
     return (currentWord.right + (letterSize * 1.5)) < zoneDeJeu.right;
 
+}
+
+
+
+export function updateTimer(temps) {
+    const DOMtimer = document.querySelector(".timer");
+    DOMtimer.textContent = temps;
+}
+
+
+
+let ecranFocus = document.querySelector(".focusWarning");
+
+
+export function afficherEcranPause() {
+    ecranFocus.classList.remove("hidden");
+}
+
+export function cacherEcranPause() {
+    ecranFocus.classList.add("hidden");
 }

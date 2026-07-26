@@ -5,6 +5,29 @@ import * as gameUI from './gameUI.js';
 let mots = ["bonjour", "éteins", "voiture", "interroger", "manger", "pendant", "maison", "que", "je", "train", "voiture", "personne", "puis", "étudier"]
 let input = gameUI.getInputElement();
 let engine = Engine.init(mots)
+let chronoInterval = null;
+let gameArea = gameUI.getGameArea();
+
+
+input.addEventListener("blur", gameUI.afficherEcranPause);
+
+input.addEventListener("focus", gameUI.cacherEcranPause);
+
+
+gameArea.addEventListener("mousedown", (e) => {
+    e.preventDefault();
+    input.focus();
+    gameUI.cacherEcranPause();
+});
+
+
+document.addEventListener("keydown", (e) => {
+    if (document.activeElement !== input)
+        e.preventDefault();
+    input.focus();
+});
+
+
 
 window.addEventListener("load", (_) => {
     input.focus();
@@ -39,8 +62,13 @@ input.addEventListener("input", (event) => {
     if (isLetter(event.target.value)) {
         if (engine.isWordComplete && !gameUI.peutAjouterLettre(engine.currentWordIndex))
             return;
-        else
-            engine = engine.verifyLetter(event.target.value);
+
+        const etaitEnAttente = (engine.status === "IDLE");
+        engine = engine.verifyLetter(event.target.value);
+        
+        if (etaitEnAttente) {
+            lancerChrono();
+        }
     }
 
     gameUI.updateUI(engine);
@@ -50,4 +78,21 @@ input.addEventListener("input", (event) => {
 
 function isLetter(key) {
     return key.length == 1 && key != " ";
+}
+
+
+
+function lancerChrono() {
+    chronoInterval = setInterval(() => {
+        let time = Date.now();
+        time -= engine.startTime;
+        time = Math.floor(time / 1000);
+
+        gameUI.updateTimer(time);
+    }, 1000);
+}
+
+
+function arreterChrono() {
+    clearInterval(chronoInterval);
 }
