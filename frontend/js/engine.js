@@ -1,3 +1,6 @@
+import * as wordManager from './wordManager.js';
+
+
 export class Engine {
     constructor(tabMotsObjets, currentWordIndex = 0, currentLetterIndex = 0, status = "IDLE", startTime = null, endTime = null) {
         this.tabMots = tabMotsObjets;
@@ -18,8 +21,8 @@ export class Engine {
     }
 
 
-    static init(tabMots) {
-        const tabMotsObjets = tabMots.map(mot => ({
+    static init() {
+        const tabMotsObjets = wordManager.getRandomWordTab(100).map(mot => ({
             attendu: mot,
             tape: "",
             lettres: mot.split("").map(lettre =>({

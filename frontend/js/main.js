@@ -1,12 +1,16 @@
 import { Engine } from './engine.js';
 import * as gameUI from './gameUI.js';
+import * as wordManager from './wordManager.js';
 
 
-let mots = ["bonjour", "éteins", "voiture", "interroger", "manger", "pendant", "maison", "que", "je", "train", "voiture", "personne", "puis", "étudier"]
 let input = gameUI.getInputElement();
-let engine = Engine.init(mots)
 let chronoInterval = null;
 let gameArea = gameUI.getGameArea();
+
+
+let engine = Engine.init();
+input.focus();
+gameUI.updateUI(engine);
 
 
 input.addEventListener("blur", gameUI.afficherEcranPause);
@@ -29,13 +33,10 @@ document.addEventListener("keydown", (e) => {
 
 
 
-window.addEventListener("load", (_) => {
-    input.focus();
-    gameUI.updateUI(engine);
-});
 
 
-window.addEventListener("keydown", (event) => {
+
+window.addEventListener("keydown", async (event) => {
     if (engine.status == "FINISHED") return;
 
 
