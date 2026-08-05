@@ -37,10 +37,10 @@ body {
     padding: 0;
     box-sizing: border-box;
     /*outline: 2px solid red;*/
+    transition: 0.5s;
 }
 
 .letter {
-    font-size: 4rem;
     font-weight: var(--fw-regular);
     font-family: var(--font-mono);
     color: rgb(127, 127, 127);
@@ -74,28 +74,35 @@ body {
 }
 
 .jeu {
+    --nombre-lignes: 3;
+    --hauteur-ligne: 1.5;
+
+
     left: 0;
     display: flex;
     justify-content: flex-start;
     align-content: flex-start;
     flex-wrap: wrap;
-    width: 1200px;
-    height: 350px;
+    max-width: 1200px;
+    height: calc(var(--nombre-lignes) * var(--hauteur-ligne) * 1em);
+    line-height: 1.5;
+    font-size: 2em;
+    overflow: hidden;
 }
 
 
 .word {
-    margin: 1em .9em;
+    margin-right: .9em;
 }
 
 
 .caret {
   position: absolute;
   width: 2px;
-  height: 5rem;
+  height: 2rem;
   background-color: #f1c40f;
   border-radius: 4px;
-  transition: all 0.1s ease;
+  transition: all 0.15s ease;
 }
 
 

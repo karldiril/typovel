@@ -13,6 +13,15 @@ input.focus();
 gameUI.updateUI(engine);
 
 
+window.addEventListener("resize", (_) => {
+    if (gameUI.doitDecalerAffichage(engine.currentWordIndex)) {
+        gameUI.allongerOffset(gameUI.calculerDecalage());
+    }
+
+    gameUI.updateUI(engine);
+});
+
+
 input.addEventListener("blur", gameUI.afficherEcranPause);
 
 input.addEventListener("focus", gameUI.cacherEcranPause);

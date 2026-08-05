@@ -126,12 +126,19 @@ export function doitDecalerAffichage(currentWordIndex) {
 
 
 export function peutAjouterLettre(currentWordIndex) {
-    const currentWord = document.querySelector(`.word[data-wordindex="${currentWordIndex}"]`).getBoundingClientRect();
-    const letterSize = document.querySelector(".letter").getBoundingClientRect().width;
-    const zoneDeJeu = document.querySelector(".jeu").getBoundingClientRect();
-
-    return (currentWord.right + (letterSize * 1.5)) < zoneDeJeu.right;
-
+    const currentWord = document.querySelector(`.word[data-wordindex="${currentWordIndex}"]`);
+    const currentWordTop = currentWord.offsetTop;
+    const newLetter = document.createElement('span');
+    
+    newLetter.classList.add("letter");
+    newLetter.textContent = "a";
+    currentWord.append(newLetter);
+    
+    const afterCurrentWordTop = currentWord.offsetTop;
+    
+    newLetter.remove();
+    
+    return afterCurrentWordTop === currentWordTop;
 }
 
 
