@@ -142,6 +142,12 @@ export function peutAjouterLettre(currentWordIndex) {
 }
 
 
+export function displayTimer(chosenTime) {
+    const DOMtimer = document.querySelector(".timer");
+    DOMtimer.style.visibility = "visible";
+    DOMtimer.textContent = chosenTime
+}
+
 
 export function updateTimer(temps) {
     const DOMtimer = document.querySelector(".timer");

@@ -11,7 +11,7 @@ let gameArea = gameUI.getGameArea();
 let engine = Engine.init();
 input.focus();
 gameUI.updateUI(engine);
-
+ 
 
 window.addEventListener("resize", (_) => {
     if (gameUI.doitDecalerAffichage(engine.currentWordIndex)) {
@@ -77,7 +77,7 @@ input.addEventListener("input", (event) => {
         engine = engine.verifyLetter(event.target.value);
         
         if (etaitEnAttente) {
-            lancerChrono();
+            lancerChrono(15);
         }
     }
 
@@ -92,11 +92,13 @@ function isLetter(key) {
 
 
 
-function lancerChrono() {
+function lancerChrono(chosenTime) {
+    gameUI.displayTimer(chosenTime);
     chronoInterval = setInterval(() => {
         let time = Date.now();
         time -= engine.startTime;
         time = Math.floor(time / 1000);
+        time = chosenTime - time;
 
         gameUI.updateTimer(time);
     }, 1000);
