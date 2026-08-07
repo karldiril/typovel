@@ -77,7 +77,7 @@ input.addEventListener("input", (event) => {
         engine = engine.verifyLetter(event.target.value);
         
         if (etaitEnAttente) {
-            lancerChrono(15);
+            lancerChrono(engine.timeLimit);
         }
     }
 
@@ -92,18 +92,25 @@ function isLetter(key) {
 
 
 
-function lancerChrono(chosenTime) {
-    gameUI.displayTimer(chosenTime);
-    chronoInterval = setInterval(() => {
-        let time = Date.now();
-        time -= engine.startTime;
-        time = Math.floor(time / 1000);
-        time = chosenTime - time;
-
-        gameUI.updateTimer(time);
-    }, 1000);
+function lancerChrono() {
+    gameUI.displayTimer(engine.timeLimit);
+    chronoInterval = setInterval(actualiserTemps, 1000);
 }
 
+
+
+function actualiserTemps() {
+    let time = Date.now();
+    time -= engine.startTime;
+    time = Math.floor(time / 1000);
+    time = engine.timeLimit - time;
+
+    gameUI.updateTimer(time);
+
+    if (time <= 0) {
+        arreterChrono();
+    }
+}
 
 function arreterChrono() {
     clearInterval(chronoInterval);

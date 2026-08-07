@@ -2,7 +2,7 @@ import * as wordManager from './wordManager.js';
 
 
 export class Engine {
-    constructor(tabMotsObjets, currentWordIndex = 0, currentLetterIndex = 0, status = "IDLE", startTime = null, endTime = null) {
+    constructor(tabMotsObjets, currentWordIndex = 0, currentLetterIndex = 0, status = "IDLE", startTime = null, endTime = null, timeLimit = 15) {
         this.tabMots = tabMotsObjets;
         this.currentWordIndex = Math.max(0, currentWordIndex);
         this.currentLetterIndex = Math.max(0, currentLetterIndex);
@@ -10,6 +10,7 @@ export class Engine {
         this.status = status;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.timeLimit = timeLimit;
     }
     
     get longueurMotActuel() {
