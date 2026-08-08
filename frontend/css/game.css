@@ -158,3 +158,16 @@ body {
 .game-container {
     position: relative;
 }
+
+
+.gameover-container {
+    position: absolute;
+}
+
+
+.gameover-container span {
+    font-size: 1.5rem;
+    font-weight: var(--fw-regular);
+    font-family: var(--font-main);
+    color: black;
+}

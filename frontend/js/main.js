@@ -22,6 +22,14 @@ window.addEventListener("resize", (_) => {
 });
 
 
+
+document.addEventListener("gameOverEvent", (_) => {
+    console.log("fin");
+    gameUI.afficherEcranFin();
+});
+
+
+
 input.addEventListener("blur", gameUI.afficherEcranPause);
 
 input.addEventListener("focus", gameUI.cacherEcranPause);
@@ -108,10 +116,15 @@ function actualiserTemps() {
     gameUI.updateTimer(time);
 
     if (time <= 0) {
-        arreterChrono();
+        terminerPartie();
     }
 }
 
-function arreterChrono() {
+function terminerPartie() {
+    engine.status = "FINISHED";
     clearInterval(chronoInterval);
+
+    const gameOverEvent = new CustomEvent("gameOverEvent"); 
+
+    document.dispatchEvent(gameOverEvent);
 }

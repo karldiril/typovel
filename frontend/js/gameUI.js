@@ -166,3 +166,21 @@ export function afficherEcranPause() {
 export function cacherEcranPause() {
     ecranFocus.classList.add("hidden");
 }
+
+
+export function afficherEcranFin() {
+    const gameContainer = document.querySelector(".game-container");
+    const gameOverContainer = document.querySelector(".gameover-container");
+
+    gameContainer.classList.add("hidden");
+    gameOverContainer.classList.remove("hidden");
+}
+
+
+export function cacherEcranFin() {
+    const gameContainer = document.querySelector(".game-container");
+    const gameOverContainer = document.querySelector(".gameover-container");
+
+    gameContainer.classList.remove("hidden");
+    gameOverContainer.classList.add("hidden");
+}
