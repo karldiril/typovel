@@ -160,14 +160,66 @@ body {
 }
 
 
+
+/* STATS */
+
 .gameover-container {
     position: absolute;
+    margin-top: 20rem;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    align-items: center;
 }
 
 
+.gameover-container .stats {
+    display: flex;
+    flex-direction: column;
+}
+
+#stats-wrapper {
+    margin-top: 10rem;
+    display: flex;
+    flex-direction: row;
+    gap: 50rem;
+    margin-bottom: 5rem;
+}
+
 .gameover-container span {
-    font-size: 1.5rem;
+    text-align: center;
+    font-size: 2.5rem;
     font-weight: var(--fw-regular);
     font-family: var(--font-main);
     color: black;
+}
+
+.gameover-container .stat-value {
+    text-align: center;
+    font-size: 4.5rem;
+    font-weight: var(--fw-semibold);
+    font-family: var(--font-main);
+    color: black;
+}
+
+.stat-label {
+    margin-bottom: 1rem;
+}
+
+.gameover-container h2 {
+    font-size: 4.5rem;
+    font-weight: normal;
+    font-family: var(--font-main);
+}
+
+.replay {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.replay .fa-repeat {
+    text-align: center;
+    font-size: 2.5rem;
 }

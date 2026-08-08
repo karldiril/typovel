@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TypingRush</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="css/game.css">
 </head>
 <body>
@@ -21,9 +25,25 @@
                 <span>Veuillez appuyer sur une touche ou cliquer dans la zone pour revenir au jeu</span>
             </div>
         </div>
+
         <div class="gameover-container hidden">
-            <span>150 WPM</span>
+            <h2>Resultats</h2>
+            <div id="stats-wrapper">
+                <div class="stats" id="wpm-container">
+                    <span class="stat-label">WPM</span>
+                    <span class="stat-value" id="wpm-score">150</span>
+                </div>
+                <div class="stats" id="acc-container">
+                    <span class="stat-label">Précision</span>
+                    <span class="stat-value" id="acc-score">0%</span>
+                </div>
+            </div>
+            <div class="replay">
+                <span>Rejouer</span>
+                <i class="fa-solid fa-repeat"></i>
+            </div>
         </div>
+        
     </div>
     <script type="module" src="js/main.js"></script>
 </body>
