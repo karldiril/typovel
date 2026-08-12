@@ -6,6 +6,7 @@ import * as wordManager from './wordManager.js';
 let input = gameUI.getInputElement();
 let chronoInterval = null;
 let gameArea = gameUI.getGameArea();
+let replayArea = gameUI.getReplayArea();
 
 
 let engine = Engine.init();
@@ -40,6 +41,9 @@ gameArea.addEventListener("mousedown", (e) => {
     input.focus();
     gameUI.cacherEcranPause();
 });
+
+
+replayArea.addEventListener("click", relancerPartie);
 
 
 document.addEventListener("keydown", (e) => {
@@ -127,4 +131,11 @@ function terminerPartie() {
     const gameOverEvent = new CustomEvent("gameOverEvent"); 
 
     document.dispatchEvent(gameOverEvent);
+}
+
+
+function relancerPartie() {
+    engine = Engine.init();
+    gameUI.resetUI(engine);
+    input.focus();
 }

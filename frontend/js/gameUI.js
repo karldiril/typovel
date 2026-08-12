@@ -111,6 +111,11 @@ export function allongerOffset(valeur) {
     offset += valeur;
 }
 
+
+export function resetOffset() {
+    offset = 0;
+}
+
 export function getOffset() {
     return offset;
 }
@@ -149,6 +154,12 @@ export function displayTimer(chosenTime) {
 }
 
 
+export function hideTimer() {
+    const DOMtimer = document.querySelector(".timer");
+    DOMtimer.style.visibility = "hidden";
+}
+
+
 export function updateTimer(temps) {
     const DOMtimer = document.querySelector(".timer");
     DOMtimer.textContent = temps;
@@ -183,4 +194,17 @@ export function cacherEcranFin() {
 
     gameContainer.classList.remove("hidden");
     gameOverContainer.classList.add("hidden");
+}
+
+
+export function getReplayArea() {
+    return document.querySelector(".replay");
+}
+
+
+export function resetUI(engine) {
+    hideTimer();
+    resetOffset();
+    updateUI(engine);
+    cacherEcranFin();
 }
