@@ -50,7 +50,7 @@ export function updateUI(engine) {
 }
 
 
-export function curseurPlacement(engine) {
+function curseurPlacement(engine) {
     const currentWord = document.querySelector(`.word[data-wordindex="${engine.currentWordIndex}"]`);
     
     if (!currentWord) return;
@@ -207,4 +207,34 @@ export function resetUI(engine) {
     resetOffset();
     updateUI(engine);
     cacherEcranFin();
+}
+
+
+function changeWpmUI(scoreWpm) {
+    const wpmUI = document.querySelector("#wpm-score");
+    wpmUI.textContent = Math.round(scoreWpm);
+}
+
+function changeAccUI(scoreAcc) {
+    const accUI = document.querySelector("#acc-score")
+    accUI.textContent = Math.round(scoreAcc * 100) + "%";
+}
+
+function changeMistakesUI(scoreMistakes) {
+    const mistakesUI = document.querySelector("#mistakes-score");
+    mistakesUI.textContent = scoreMistakes;
+}
+
+
+function changeTimeUI(timeLimit) {
+    const timeUI = document.querySelector("#time-score");
+    timeUI.textContent = timeLimit + "s";
+}
+
+
+export function updateStatsUI(scoreWpm, scoreAcc, scoreMistakes, timeLimit) {
+    changeWpmUI(scoreWpm);
+    changeAccUI(scoreAcc);
+    changeMistakesUI(scoreMistakes);
+    changeTimeUI(timeLimit);
 }

@@ -1,6 +1,7 @@
 import { Engine } from './engine.js';
 import * as gameUI from './gameUI.js';
 import * as wordManager from './wordManager.js';
+import * as stats from './stats.js';
 
 
 let input = gameUI.getInputElement();
@@ -127,6 +128,14 @@ function actualiserTemps() {
 function terminerPartie() {
     engine.status = "FINISHED";
     clearInterval(chronoInterval);
+
+    const wmpScore = stats.calculWpm(engine);
+    const accScore = stats.calculAccuracy(engine);
+    const mistakesScore = stats.calculIncorrectLetters(engine);
+    const timeLimit = engine.timeLimit;
+
+
+    gameUI.updateStatsUI(wmpScore, accScore, mistakesScore, timeLimit);
 
     const gameOverEvent = new CustomEvent("gameOverEvent"); 
 
