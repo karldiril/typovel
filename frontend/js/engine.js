@@ -29,7 +29,8 @@ export class Engine {
             lettres: mot.split("").map(lettre =>({
                 charAttendu: lettre,
                 charTape: "",
-                charEtat: "PENDING"
+                charEtat: "PENDING",
+                wasIncorrect: false
             }))
         }));
         return new Engine(tabMotsObjets);
@@ -39,6 +40,8 @@ export class Engine {
     verifyLetter(newLetter) {
 
         if (this.status === "FINISHED") return this;
+
+        console.log(this.tabMots);
 
         let currentStatus = this.status;
         let currentStartTime = this.startTime;
@@ -64,6 +67,7 @@ export class Engine {
                 charAttendu: "", 
                 charEtat: etatLettreActuelle,
                 charTape: newLetter,
+                wasIncorrect: true
             })
         }
 
@@ -71,7 +75,8 @@ export class Engine {
             lettresActuel[this.currentLetterIndex] = {
                 ...lettresActuel[this.currentLetterIndex],
                 charTape: newLetter,
-                charEtat: etatLettreActuelle
+                charEtat: etatLettreActuelle,
+                wasIncorrect: lettresActuel[this.currentLetterIndex].wasIncorrect || etatLettreActuelle === "INCORRECT"
             };
         }
         
