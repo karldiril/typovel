@@ -22,9 +22,13 @@ function calculCorrectLetters(engine) {
 }
 
 
-export function calculIncorrectLetters(engine) {
+export function calculTotalMistakes(engine) {
 
-    let incorrectLetter = 0;
+    let incorrectLetters = 0;
+    let missedLetters = 0;
+    let extraLetters = 0;
+    let correctedLetter = 0;
+
     const tabMots = engine.tabMots;
 
     for (let i = 0; i <= engine.currentWordIndex; i++) {
@@ -34,16 +38,35 @@ export function calculIncorrectLetters(engine) {
             const lettre = lettres[j];
 
             // If its the last typed letter
-            if (i == engine.currentWordIndex && j > engine.currentLetterIndex)
+            if (i == engine.currentWordIndex && j >= engine.currentLetterIndex && lettre.charEtat === "IDLE")
                 break;
 
-            if (lettre.charEtat === "INCORRECT" || lettre.charEtat === "IDLE" || lettre.charEtat === "EXTRA") {
-                incorrectLetter++;
+            switch (lettre.charEtat) {
+                case "INCORRECT":
+                    incorrectLetters++;
+                    break
+
+                case "IDLE":
+                    missedLetters++;
+                    break
+
+                case "EXTRA":
+                    extraLetters++;
+                    break
+            }
+            if (lettre.wasIncorrect && lettre.charEtat === "CORRECT") {
+                correctedLetter++;
             }
         }
     }
-    return incorrectLetter; 
+    return {total: incorrectLetters + missedLetters + extraLetters + correctedLetter, 
+            incorrectLetters, 
+            missedLetters, 
+            extraLetters, 
+            correctedLetter
+        }; 
 }
+
 
 
 export function calculAccuracy(engine) {
