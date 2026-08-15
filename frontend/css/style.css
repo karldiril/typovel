@@ -62,7 +62,7 @@ a {
 }
 
 .logo span {
-    font-size: 2rem;
+    font-size: 26px;
     font-weight: var(--fw-bold);
 }
 
@@ -113,7 +113,7 @@ nav .menu {
 /* HERO SECTION */
 
 .hero {
-    height: 880px;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -132,15 +132,15 @@ nav .menu {
 }
 
 .hero-container .hero-title {
-    width: 700px;
-    font-size: 4.5rem;
+    width: clamp(280px, 80vw, 700px);
+    font-size: clamp(2.2rem, 5vw, 4.5rem);
     font-weight: var(--fw-bold);
     
 }
 
 .hero-container .hero-lead {
-    width: 400px;
-    font-size: 1.1rem;
+    width: clamp(260px, 70vw, 400px);
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
 }
 
 .hero-container .hero-cta {
@@ -268,9 +268,9 @@ nav .menu {
 
 
 @media (max-width: 700px) {
-    .hero .hero-title {
-        width: 400px;
-        font-size: 3.25rem;
+
+    .logo span {
+        display: none;
     }
 }
 
@@ -287,57 +287,39 @@ nav .menu {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    height: 800px;
+    height: 100%;
 }
 
 
 .wip-icon {
-    width: 320px;
+    width: clamp(120px, 25vw, 270px);
 }
 
 
 
 
 .center h1 {
-    animation: 
-        type-animation var(--typing-animation) steps(39) forwards,
-        cursor-blink 1s calc(var(--typing-animation) + 0.5s) step-start infinite;
-
-    margin-top: 50px;
-    font-size: 3.5rem;
-    width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
+    font-size: clamp(1.3rem, 4vw, 3.5rem);
+    margin-top: clamp(50px, 10vh, 120px);
     font-family: monospace;
-    align-self: flex-start;
-    border-right: 3px solid black;
-}
 
-/* WIP responsive */
+    overflow: hidden;
+    white-space: pre-wrap;
+    display: inline-block;
 
-
-@media (max-width: 1300px) {
-    .center h1 {
-        font-size: 2.5rem;
-    }
+    text-align: center;
 }
 
 
-@media (max-width: 1000px) {
-    .center h1 {
-        font-size: 2rem;
-    }
-}
+.caret {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background: black;
+    margin-left: 2px;
 
-@media (max-width: 850px) {
-    .center h1 {
-        font-size: 1.5rem;
-        margin-top: 120px;
-    }
-
-    .wip-icon {
-        width: 280px;
-    }
+    animation: blink 0.8s infinite;
+    vertical-align: bottom;
 }
 
 
@@ -354,12 +336,8 @@ nav .menu {
 }
 
 
-@keyframes cursor-blink {
-    from {
-        border-color: black;
-    }
-
+@keyframes blink {
     50% {
-        border-color: transparent;
+        opacity: 0;
     }
 }
