@@ -26,7 +26,6 @@ window.addEventListener("resize", (_) => {
 
 
 document.addEventListener("gameOverEvent", (_) => {
-    console.log("fin");
     gameUI.afficherEcranFin();
 });
 

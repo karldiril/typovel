@@ -41,8 +41,6 @@ export class Engine {
 
         if (this.status === "FINISHED") return this;
 
-        console.log(this.tabMots);
-
         let currentStatus = this.status;
         let currentStartTime = this.startTime;
 
