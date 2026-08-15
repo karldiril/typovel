@@ -76,6 +76,7 @@ export class Engine {
                 ...lettresActuel[this.currentLetterIndex],
                 charTape: newLetter,
                 charEtat: etatLettreActuelle,
+                /* if the letter was already incorrect or it is now */
                 wasIncorrect: lettresActuel[this.currentLetterIndex].wasIncorrect || etatLettreActuelle === "INCORRECT"
             };
         }
