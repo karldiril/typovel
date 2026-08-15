@@ -71,8 +71,8 @@ export function calculTotalMistakes(engine) {
 
 export function calculAccuracy(engine) {
     const correctLetters = calculCorrectLetters(engine);
-    const incorrectLetters = calculIncorrectLetters(engine);
-    const typedLetters = correctLetters + incorrectLetters;
+    const totalMistakes = calculTotalMistakes(engine).total;
+    const typedLetters = correctLetters + totalMistakes;
 
     if (typedLetters <= 0) return 0;
 
