@@ -131,11 +131,11 @@ function terminerPartie() {
 
     const wmpScore = stats.calculWpm(engine);
     const accScore = stats.calculAccuracy(engine);
-    const mistakesScore = stats.calculIncorrectLetters(engine);
+    const totalMistakes = stats.calculTotalMistakes(engine);
     const timeLimit = engine.timeLimit;
 
 
-    gameUI.updateStatsUI(wmpScore, accScore, mistakesScore, timeLimit);
+    gameUI.updateStatsUI(wmpScore, accScore, totalMistakes.incorrectLetters, timeLimit);
 
     const gameOverEvent = new CustomEvent("gameOverEvent"); 
 
