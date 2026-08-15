@@ -1,5 +1,5 @@
 const el = document.querySelector(".center h1");
-const caret = document.querySelector(".caret");
+const caret = document.querySelector(".wip-caret");
 
 const text = el.textContent;
 el.textContent = "";
