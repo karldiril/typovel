@@ -9,9 +9,9 @@ CREATE TABLE users (
 
 CREATE TABLE score (
     id_score SERIAL PRIMARY KEY,
-    wpm NUMERIC,
-    accuracy NUMERIC,
-    duration_seconds NUMERIC NOT NULL,
+    wpm REAL,
+    accuracy REAL,
+    duration_seconds REAL NOT NULL,
     amount_mistakes INT NOT NULL,
     id_user INT REFERENCES users,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
