@@ -4,5 +4,5 @@ using backend.Models;
 
 public interface ITokenService
 {
-    string CreateToken(User user);
+    string GenerateToken(User user);
 }
