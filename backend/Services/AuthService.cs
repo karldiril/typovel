@@ -9,10 +9,12 @@ public class AuthService : IAuthService
 {
 
     private readonly TypovelDbContext _context;
+    private readonly ITokenService _tokenService;
 
-    public AuthService(TypovelDbContext context)
+    public AuthService(TypovelDbContext context, ITokenService tokenService)
     {
         _context = context;
+        _tokenService = tokenService;
     }
 
 
@@ -43,7 +45,7 @@ public class AuthService : IAuthService
     {
         User? user = await VerifyUserAsync(loginDto.Email, loginDto.Password);
         if (user == null) return null;
-        else return "OK";
+        else return _tokenService.GenerateToken(user);
     }
 
     private async Task<bool> AlreadyUsedEmailAsync(string email)
