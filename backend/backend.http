@@ -1,6 +1,34 @@
 @backend_HostAddress = http://localhost:5098
 
-GET {{backend_HostAddress}}/weatherforecast/
+### Trying /me without token
+
+GET {{backend_HostAddress}}/api/auth/me
 Accept: application/json
 
-###
+### Register
+
+POST {{backend_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+    "pseudo" : "karl",
+    "email": "karl@test.com",
+    "password": "motdepasse"
+}
+
+### Login 
+
+POST {{backend_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "karl@test.com",
+    "password": "motdepasse"
+}
+
+
+### Trying /me with token
+
+GET {{backend_HostAddress}}/api/auth/me 
+Accept: application/json
+Authorization: Bearer 
