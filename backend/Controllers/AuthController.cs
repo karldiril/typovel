@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using backend.Services;
 using backend.DTOs;
 using backend.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -46,5 +48,24 @@ public class AuthController : ControllerBase
         }
 
         return Ok(new { Message = "Inscription réussie. "});
+    }
+
+    [Authorize]
+    [HttpGet("me")]
+    public IActionResult GetCurrentUser()
+    {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var pseudo = User.FindFirst(ClaimTypes.Name)?.Value;
+
+        if (userId == null)
+        {
+            return Unauthorized();
+        }
+
+        return Ok(new
+        {
+            Id = userId,
+            Pseudo = pseudo
+        });
     }
 }
