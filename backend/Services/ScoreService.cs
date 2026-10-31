@@ -3,7 +3,7 @@ namespace backend.Services;
 using backend.Data;
 using backend.DTOs;
 using backend.Models;
-
+using Microsoft.EntityFrameworkCore;
 
 public class ScoreService : IScoreService
 {
@@ -13,6 +13,28 @@ public class ScoreService : IScoreService
     {
         _context = context;
     }
+
+
+    public async Task<ScoreResponseDto?> GetScoreByIdAsync(int id)
+    {
+        var score = await _context.Scores.AsNoTracking().FirstOrDefaultAsync(s => s.Id == id);
+
+        if (score == null)
+        {
+            return null;
+        }
+
+        return new ScoreResponseDto
+        {
+            Id = score.Id,
+            Wpm = score.Wpm,
+            Accuracy = score.Accuracy,
+            DurationSeconds = score.DurationSeconds,
+            AmountMistakes = score.AmountMistakes,
+            CreatedAt = score.CreatedAt
+        };
+    }
+
 
 
     public async Task<ScoreResponseDto> AddScoreAsync(ScoreCreateDto scoreCreateDto, int userId)
