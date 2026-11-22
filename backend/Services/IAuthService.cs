@@ -5,5 +5,5 @@ using backend.DTOs;
 public interface IAuthService
 {
     Task<AuthResponseDto?> RegisterAsync(RegisterDto registerDto);
-    Task<string?> LoginAsync(LoginDto loginDto);
+    Task<AuthResponseDto?> LoginAsync(LoginDto loginDto);
 }
