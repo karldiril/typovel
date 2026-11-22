@@ -21,33 +21,28 @@ public class AuthController : ControllerBase
 
 
     [HttpPost("login")]
-
     public async Task<IActionResult> Login(LoginDto loginDto)
     {
-        string? token = await _authService.LoginAsync(loginDto);
+        AuthResponseDto? response = await _authService.LoginAsync(loginDto);
 
-        if (token == null)
+        if (response == null)
         {
-            return Unauthorized("Identifiants invalides");
+            return Unauthorized(new { Message = "Identifiants invalides" });
         }
-        return Ok(new
-        {
-            Token = token,
-            Message = "connexion réussie"
-        });
+        return Ok(response);
     }
 
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterDto registerDto)
     {
-        User? user = await _authService.RegisterAsync(registerDto);
+        AuthResponseDto? response = await _authService.RegisterAsync(registerDto);
 
-        if (user == null)
+        if (response == null)
         {
-            return BadRequest(new { Message = "Données invalides ou email déjà utilisé."});
+            return BadRequest(new { Message = "Données invalides ou email ou pseudo déjà utilisé."});
         }
 
-        return Ok(new { Message = "Inscription réussie. "});
+        return Ok(response);
     }
 
     [Authorize]
