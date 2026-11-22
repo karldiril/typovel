@@ -45,7 +45,7 @@ public class AuthService : IAuthService
         return new AuthResponseDto
         {
             Token = token,
-            User = MapToUserReponse(newUser)
+            User = MapToUserResponse(newUser)
         };
     }
 
@@ -59,7 +59,7 @@ public class AuthService : IAuthService
         return new AuthResponseDto
         {
             Token = token,
-            User = MapToUserReponse(user)
+            User = MapToUserResponse(user)
         };
     }
 
@@ -100,7 +100,7 @@ public class AuthService : IAuthService
         return user;
     }
 
-    private static UserResponseDto MapToUserReponse(User user)
+    private static UserResponseDto MapToUserResponse(User user)
     {
         return new UserResponseDto
         {
