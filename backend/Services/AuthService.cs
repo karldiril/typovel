@@ -49,11 +49,18 @@ public class AuthService : IAuthService
         };
     }
 
-    public async Task<string?> LoginAsync(LoginDto loginDto)
+    public async Task<AuthResponseDto?> LoginAsync(LoginDto loginDto)
     {
         User? user = await VerifyUserAsync(loginDto.Email, loginDto.Password);
         if (user == null) return null;
-        else return _tokenService.GenerateToken(user);
+
+        string token = _tokenService.GenerateToken(user);
+
+        return new AuthResponseDto
+        {
+            Token = token,
+            User = MapToUserReponse(user)
+        };
     }
 
     private async Task<bool> AlreadyUsedEmailAsync(string email)
