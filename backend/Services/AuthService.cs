@@ -19,7 +19,7 @@ public class AuthService : IAuthService
     }
 
 
-    public async Task<User?> RegisterAsync(RegisterDto registerDto)
+    public async Task<AuthResponseDto?> RegisterAsync(RegisterDto registerDto)
     {
         if (await AlreadyUsedEmailAsync(registerDto.Email) || await AlreadyUsedPseudoAsync(registerDto.Pseudo))
         {
@@ -39,7 +39,14 @@ public class AuthService : IAuthService
         _context.Users.Add(newUser);
         await _context.SaveChangesAsync();
 
-        return newUser;
+
+        string token = _tokenService.GenerateToken(newUser);
+
+        return new AuthResponseDto
+        {
+            Token = token,
+            User = MapToUserReponse(newUser)
+        };
     }
 
     public async Task<string?> LoginAsync(LoginDto loginDto)
@@ -85,4 +92,18 @@ public class AuthService : IAuthService
 
         return user;
     }
+
+    private static UserResponseDto MapToUserReponse(User user)
+    {
+        return new UserResponseDto
+        {
+            Id = user.Id,
+            Pseudo = user.Pseudo,
+            Email = user.Email,
+            CreatedAt = user.CreatedAt
+        };
+    }
 }
+
+
+    
