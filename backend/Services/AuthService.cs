@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 public class AuthService : IAuthService
 {
+    private const string DummyHash = "$2a$11$KIX/8fW2a7y7Q6N3z9uL5e1V4x8R2t6Y0w9P3q5M7n1B4c8D2f6G8";
 
     private readonly TypovelDbContext _context;
     private readonly ITokenService _tokenService;
@@ -70,13 +71,18 @@ public class AuthService : IAuthService
 
     private async Task<User?> VerifyUserAsync(string email, string password)
     {
-        User? user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email.Trim().ToLower());
-        if (user != null)
-        {
-            bool isCorrectPassword = BCrypt.Net.BCrypt.Verify(password, user.HashPassword);
+        string lowerEmail = email.Trim().ToLower();
+        User? user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == lowerEmail);
 
-            if (isCorrectPassword) return user;
+        if (user == null)
+        {
+            BCrypt.Net.BCrypt.Verify(password, DummyHash);
+            return null;
         }
-        return null;
+        bool isCorrectPassword = BCrypt.Net.BCrypt.Verify(password, user.HashPassword);
+
+        if (!isCorrectPassword) return null;
+
+        return user;
     }
 }
